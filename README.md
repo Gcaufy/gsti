@@ -2,7 +2,8 @@
 
 gsti gives you a very simple UI for `git status` in command line, you can easily do interactive in command line.
 
-![image](https://user-images.githubusercontent.com/2182004/47618994-55cb0f00-db14-11e8-854e-924046b73edd.png)
+![image](https://user-images.githubusercontent.com/2182004/47619060-3bddfc00-db15-11e8-96da-a001a243e8b9.png)
+
 
 
 ## Install
