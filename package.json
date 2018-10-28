@@ -1,0 +1,20 @@
+{
+  "name": "gsti",
+  "version": "0.0.2",
+  "description": "git Interactive git status",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Gcaufy<gcaufy@gmail.com>",
+  "license": "MIT",
+  "bin": {
+    "git-sti": "./bin/git-sti"
+  },
+  "dependencies": {
+    "clipboardy": "^1.2.3",
+    "editor": "^1.0.0",
+    "execa": "^1.0.0",
+    "inquirer": "^6.2.0"
+  }
+}
