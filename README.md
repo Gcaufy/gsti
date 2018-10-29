@@ -10,11 +10,13 @@ gsti gives you a very simple UI for `git status` in command line, you can easily
 
 ```
 $ npm install gsti -g
-$ git sti
 ```
 
 ## Usage
 
+```
+$ git sti
+```
 
 ### Movement:
 
