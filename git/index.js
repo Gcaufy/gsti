@@ -33,6 +33,20 @@ module.exports = {
     }
     return execa('git', arg, option ? { stdio: 'inherit' } : undefined);
   },
+  stash: {
+    list (opt) {
+      let arg = ['stash', 'list'];
+      if (opt) {
+        arg = arg.concat(opt);
+      }
+      return execa('git', arg).then(({ stdout: list }) => {
+         debugger;
+      });
+    }
+  },
+  /*
+   * git commit
+   */
   commit (option) {
     let arg = ['commit'];
     if (option) {
