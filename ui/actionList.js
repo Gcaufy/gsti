@@ -64,6 +64,11 @@ class ActionList extends Base {
     }
     cliCursor.hide();
     let output = this.opt.hideMessage ? chalk.reset(' ') : this.getQuestion();
+    // Fix selected index
+    let choiceLength = this.opt.choices.realChoices.length;
+    if (this.selected > choiceLength) {
+      this.selected = choiceLength - 1;
+    }
     let choiceStr = listRender(this.opt.choices, this.selected);
     let indexPosition = this.opt.choices.indexOf(
       this.opt.choices.getChoice(this.selected)
