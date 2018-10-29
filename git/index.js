@@ -39,8 +39,15 @@ module.exports = {
       if (opt) {
         arg = arg.concat(opt);
       }
+      let stashRE = /^stash@{(\d)}:\s+(.*)/;
       return execa('git', arg).then(({ stdout: list }) => {
-         debugger;
+        return list.split('\n').map(item => {
+          let match = item.match(stashRE);
+          return {
+            id: +match[1],
+            item: match[2]
+          };
+        });
       });
     }
   },
@@ -120,48 +127,53 @@ module.exports = {
    * git status
    */
   status () {
-    return execa('git', ['status', '-z']).then(res => {
-      let files = {
-        untracked: [],
-        unstaged: [],
-        staged: []
-      };
-      res.stdout.split('\x00').forEach(line => {
-        let state = line.substring(0, 2);
-        let file = line.substring(3).trim();
+    let files = {
+      untracked: [],
+      unstaged: [],
+      staged: [],
+      stashes: []
+    };
+    return this.stash.list().then(stashes => {
+      files.stashes = stashes;
+    }).then(() => {
+      return execa('git', ['status', '-z']).then(({ stdout: status }) => {
+        status.split('\x00').forEach(line => {
+          let state = line.substring(0, 2);
+          let file = line.substring(3).trim();
 
-        if (file) {
-          if (state === '??') {
-            files.untracked.push({
-              label: STATUS_LABELS['?'],
-              file: file
-            });
-          } else if (state === '!!') {
-            // ignored files
-          } else if (['DD', 'AU', 'UD', 'UA', 'DU', 'AA', 'UU'].indexOf(state) > -1) {
-            // TODO: unmerged files
-          } else {
-            // ref: https://git-scm.com/docs/git-status#_short_format
-            // X shows status of the index
-            // Y shows status of the work tree
-            let [X, Y] = state;
-            if (Y !== ' ') {
-              files.unstaged.push({
-                label: STATUS_LABELS[Y],
+          if (file) {
+            if (state === '??') {
+              files.untracked.push({
+                label: STATUS_LABELS['?'],
                 file: file
               });
-            }
-            if (X !== ' ') {
-              files.staged.push({
-                label: STATUS_LABELS[X],
-                file: file
-              });
+            } else if (state === '!!') {
+              // ignored files
+            } else if (['DD', 'AU', 'UD', 'UA', 'DU', 'AA', 'UU'].indexOf(state) > -1) {
+              // TODO: unmerged files
+            } else {
+              // ref: https://git-scm.com/docs/git-status#_short_format
+              // X shows status of the index
+              // Y shows status of the work tree
+              let [X, Y] = state;
+              if (Y !== ' ') {
+                files.unstaged.push({
+                  label: STATUS_LABELS[Y],
+                  file: file
+                });
+              }
+              if (X !== ' ') {
+                files.staged.push({
+                  label: STATUS_LABELS[X],
+                  file: file
+                });
+              }
             }
           }
-        }
 
-      });
-      return files;
+        });
+        return files;
+      })
     })
   }
 }

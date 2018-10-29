@@ -5,8 +5,8 @@ const actions = require('./actions');
 const helper = require('./helper');
 
 
-git.status().then(res => {
-  let choices = helper.getChoices(res);
+git.status().then(status => {
+  let choices = helper.getChoices(status);
   let header, footer;
   ui.render({ choices, header, footer, actions });
 }).catch(e => {

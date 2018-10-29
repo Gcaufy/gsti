@@ -18,6 +18,21 @@ module.exports = {
   getChoices (gitfiles) {
     let choices = [];
 
+    if (gitfiles.stashes.length) {
+      // added STASH
+      choices.push(this.getSectionChoice(SECTIONS.STASH, gitfiles.stashes));
+
+      gitfiles.stashes.forEach(file => {
+        choices.push({
+          name: '    ' + file.id + ': ' + file.item,
+          value: file.id,
+          section: SECTIONS.STASH,
+          color: 'gray'
+        });
+      });
+
+    }
+
     if (gitfiles.staged.length) {
       // added STAGED
       choices.push(this.getSectionChoice(SECTIONS.STAGED, gitfiles.staged));
