@@ -8,9 +8,6 @@ const template = require('./template');
 const SECTIONS = require('./const').SECTIONS;
 
 let actions = {
-  backspace (choice, index) {
-
-  },
   /*
    * Refresh status list
    */
@@ -31,6 +28,36 @@ let actions = {
       return;
     let file = choice.value.file;
     clipboardy.writeSync(file);
+  },
+  /*
+   * Apply the stash
+   */
+  a: function apply (choice, index) {
+    if (choice.type === 'section')
+      return;
+    let selected = choice.value;
+    git.stash.apply(selected).then(actions.r.bind(this));
+  },
+  /*
+   * pop stash
+   */
+  A: function pop (choice, index) {
+    if (choice.type === 'section')
+      return;
+    let selected = choice.value;
+    git.stash.pop(selected).then(actions.r.bind(this));
+  },
+  /*
+   * Save a stash
+   */
+  z: function stashSave () {
+    git.stash.save().then(actions.r.bind(this));
+  },
+  /*
+   * Save all files into stash
+   */
+  Z: function stashSave () {
+    git.stash.save('-u').then(actions.r.bind(this));
   },
   /*
    * Edit the file
@@ -189,6 +216,10 @@ let actions = {
           files = choice.list.map(v => v.file);
           git.reset(files).then(() => git.checkout(files)).then(actions.r.bind(this));
           break;
+        case SECtiONS.STASH:
+          stashes = choices.list.map(v => `stash@{${v.id}}`);
+          git.stash.drop(stashes).then(actions.r.bind(this));
+          break;
       }
     } else {
       let { value: {file, label}, section } = choice;
@@ -200,6 +231,8 @@ let actions = {
         git.reset(file).then(() => {
           return git.checkout(file)
         }).then(actions.r.bind(this));
+      } else if (section === SECTIONS.STASH) {
+        git.stash.drop(`stash@{${choice.value}}`).then(actions.r.bind(this));
       }
     }
   },

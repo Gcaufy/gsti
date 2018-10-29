@@ -49,6 +49,29 @@ module.exports = {
           };
         });
       });
+    },
+    apply (index) {
+      let arg = ['stash', 'apply', 'stash@{' + index + '}'];
+      return execa('git', arg);
+    },
+    pop (index) {
+      let arg = ['stash', 'pop', 'stash@{' + index + '}'];
+      return execa('git', arg)
+    },
+    save (opt) {
+      // TODO: allow user to define stash message
+      let arg = ['stash', 'save'];
+      if (opt) {
+        arg = arg.concat(opt);
+      }
+      return execa('git', arg);
+    },
+    drop (opt) {
+      let arg = ['stash', 'drop'];
+      if (opt) {
+        arg = arg.concat(opt);
+      }
+      return execa('git', arg);
     }
   },
   /*

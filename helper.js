@@ -30,7 +30,6 @@ module.exports = {
           color: 'gray'
         });
       });
-
     }
 
     if (gitfiles.staged.length) {
