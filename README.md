@@ -33,6 +33,15 @@ u = unstage file/section
 x = discard file/section
 ```
 
+### Stashes: 
+
+```
+a = apply stash 
+A = pop stash 
+z = create a stash 
+Z = create a stash include untracked files
+```
+
 ### Commit: 
 
 ```
@@ -54,7 +63,6 @@ d = view diff
 
 ```
 [x] git add --patch
-[x] git stash
 ```
 
 
