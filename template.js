@@ -51,7 +51,7 @@ module.exports = {
       { yellow: 'z' },
       { gray: ' = create a stash, ' },
       { yellow: 'Z' },
-      { gray: ' = create a stash includ untracked files, ' },
+      { gray: ' = create a stash include untracked files, ' },
       '  \n',
       { gray: '  # Commit: ' },
       { yellow: 'c' },
