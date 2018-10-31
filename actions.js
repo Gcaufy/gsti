@@ -23,7 +23,7 @@ let actions = {
   /*
    * Copy file name to clipboard
    */
-  y: function yank (choice, index) {
+  y: function yank (choice) {
     if (choice.type === 'section')
       return;
     let file = choice.value.file;
@@ -32,7 +32,7 @@ let actions = {
   /*
    * Apply the stash
    */
-  a: function apply (choice, index) {
+  a: function apply (choice) {
     if (choice.type === 'section')
       return;
     let selected = choice.value;
@@ -41,7 +41,7 @@ let actions = {
   /*
    * pop stash
    */
-  A: function pop (choice, index) {
+  A: function pop (choice) {
     if (choice.type === 'section')
       return;
     let selected = choice.value;
@@ -62,7 +62,7 @@ let actions = {
   /*
    * Edit the file
    */
-  e: function edit (choice, index) {
+  e: function edit (choice) {
     if (choice.type === 'section')
       return;
     let file = choice.value.file;
@@ -72,20 +72,15 @@ let actions = {
     }
 
     this.rl.pause();
-    editor(file, (error, sig) => {
+    editor(file, () => {
       this.rl.resume();
       actions.r.call(this);
-      if (error) {
-
-      } else {
-
-      }
     });
   },
   /*
    * Stage the file
    */
-  s: function stage (choice, index) {
+  s: function stage (choice) {
     if (choice.type === 'section') {
       switch (choice.value) {
         case SECTIONS.UNTRACKED:
@@ -95,7 +90,6 @@ let actions = {
       }
     } else {
       let file = choice.value.file;
-      let label = choice.value.label;
 
       git.add(file).then(() => {
         actions.r.call(this);
@@ -109,7 +103,7 @@ let actions = {
     if (choice.type === 'section' && choice.value === SECTIONS.UNSTAGED) {
       files = choice.list.map(v => v.file);
     } else {
-      let { value: {file, label}, section } = choice;
+      let { value: {file}, section } = choice;
       files = file;
     }
     if (files) {
@@ -117,8 +111,7 @@ let actions = {
       this.rl.pause();
       cliCursor.show();
       git.add(files, '--patch').then(() => {
-        debugger;
-        //this.rl.resume();
+        this.rl.resume();
         actions.r.call(this);
       });
     }
@@ -180,7 +173,7 @@ let actions = {
     git.commit(typeof option === 'string' ? option : undefined).then(() => {
       this.rl.resume();
       actions.r.call(this);
-    }).catch(e => {
+    }).catch(() => {
       // Maybe user canceled commit
       this.rl.resume();
       actions.r.call(this);
@@ -201,7 +194,7 @@ let actions = {
     confirmText: 'yes',
     cancelText: 'no'
   },
-  'x.confirm': function discard (choice, index) {
+  'x.confirm': function discard (choice) {
     if (choice.type === 'section') {
       let files = [];
       switch (choice.value) {
@@ -216,13 +209,13 @@ let actions = {
           files = choice.list.map(v => v.file);
           git.reset(files).then(() => git.checkout(files)).then(actions.r.bind(this));
           break;
-        case SECtiONS.STASH:
-          stashes = choices.list.map(v => `stash@{${v.id}}`);
+        case SECTIONS.STASH:
+          let stashes = choice.list.map(v => `stash@{${v.id}}`);
           git.stash.drop(stashes).then(actions.r.bind(this));
           break;
       }
     } else {
-      let { value: {file, label}, section } = choice;
+      let { value: { file }, section } = choice;
       if (section === SECTIONS.UNTRACKED) {
         git.clean(file).then(actions.r.bind(this));
       } else if (section === SECTIONS.UNSTAGED) {
@@ -236,7 +229,7 @@ let actions = {
       }
     }
   },
-  'x.cancel': function discard (choice, index) {
+  'x.cancel': function discard (choice) {
     // Do nothing
   }
 };

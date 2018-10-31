@@ -1,16 +1,15 @@
 const SECTIONS = require('./const').SECTIONS;
 const inquirer = require('inquirer');
-const git = require('./git/index');
 
 module.exports = {
 
   getSectionChoice (sec, list) {
     let choice = {
-      name: '  ' + sec + ': ',
+      name: `  ${sec}: `,
       value: sec,
       type: 'section',
       color: 'magenta',
-      list: list
+      list
     };
     return choice;
   },
@@ -24,7 +23,7 @@ module.exports = {
 
       gitfiles.stashes.forEach(file => {
         choices.push({
-          name: '    ' + file.id + ': ' + file.item,
+          name: `    ${file.id}: ${file.item}`,
           value: file.id,
           section: SECTIONS.STASH,
           color: 'gray'
@@ -38,7 +37,7 @@ module.exports = {
 
       gitfiles.staged.forEach(file => {
         choices.push({
-          name: '    ' + file.label + '  ' + file.file,
+          name: `    ${file.label}  ${file.file}`,
           value: file,
           section: SECTIONS.STAGED,
           color: 'green'
@@ -54,7 +53,7 @@ module.exports = {
 
       gitfiles.unstaged.forEach(file => {
         choices.push({
-          name: '    ' + file.label + '  ' + file.file,
+          name: `    ${file.label}  ${file.file}`,
           value: file,
           section: SECTIONS.UNSTAGED,
           color: 'red'
@@ -70,7 +69,7 @@ module.exports = {
 
       gitfiles.untracked.forEach(file => {
         choices.push({
-          name: '    ' + file.file,
+          name: `    ${file.file}`,
           section: SECTIONS.UNTRACKED,
           value: file
         });

@@ -3,7 +3,6 @@ const git = require('./git/index');
 
 module.exports = {
   build (words) {
-    let output = '';
     return words.map(w => {
       let t = '';
       if (typeof w === 'string') {
@@ -19,11 +18,11 @@ module.exports = {
     let words = [
       ' \n',
       { green: '    Nothing to commit, working tree clean' },
-      ' \n \n',
+      ' \n \n'
     ]
     return this.build(words);
   },
-  section (item) {
+  section () {
     let output = ' \n \n \n';
 
     let words = [
@@ -109,12 +108,12 @@ module.exports = {
       if (info.branch) {
         words.push({ gray: '  \n  Local:     ' });
         words.push({ blue: info.branch });
-        words.push({ gray: ' ' + process.cwd() });
+        words.push({ gray: ` ${process.cwd()}` });
       }
       words.push({ gray: '  \n  Head:      ' });
       words.push(info.head ? info.head : 'nothing committed yet');
 
-      return chalk.reset(' ') + this.build(words) + ' \n \n';
+      return `${chalk.reset(' ') + this.build(words)} \n \n`;
     });
   }
 }
