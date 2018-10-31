@@ -16,54 +16,41 @@ $ npm install gsti -g
 
 ```
 $ git sti
-```
 
-### Movement:
+  # Movement:
 
-```
-k = previous item
-j = next section
-```
+  k = previous item
+  j = next section
 
-### Staging: 
+  # Staging: 
 
-```
-s = stage file/section
-u = unstage file/section
-x = discard file/section
-```
+  s = stage file/section
+  u = unstage file/section
+  x = discard file/section
 
-### Stashes: 
+  # Stashes: 
 
-```
-a = apply stash 
-A = pop stash 
-z = create a stash 
-Z = create a stash include untracked files
-```
+  a = apply stash 
+  A = pop stash 
+  z = create a stash 
+  Z = create a stash include untracked files
 
-### Commit: 
+  # Commit: 
 
-```
-c = commit
-C = commit -a (add unstaged)
-```
+  c = commit
+  C = commit -a (add unstaged)
 
-### File: 
+  # File: 
 
+  e = edit file
+  d = view diff
 ```
-e = edit file
-d = view diff
-```
-
 
 
 ## TODO List
 
 
-```
 [x] git add --patch
-```
 
 
 ## Reference
