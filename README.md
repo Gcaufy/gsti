@@ -50,7 +50,8 @@ $ git sti
 ## TODO List
 
 
-[x] git add --patch
+- [x] Support `git stash`
+- [ ] Support `git add --patch`
 
 
 ## Reference
