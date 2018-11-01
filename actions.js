@@ -147,6 +147,7 @@ let actions = {
         this.rl.resume();
       });
     } else if (section === SECTIONS.STAGED) {
+      this.rl.pause();
       git.diff(['--cached', file]).then(() => {
         this.rl.resume();
       });
