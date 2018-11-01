@@ -2,6 +2,7 @@ const git = require('./git/index');
 const ui = require('./ui/index');
 const actions = require('./actions');
 const helper = require('./helper');
+const chalk = require('chalk');
 
 
 git.status().then(status => {
@@ -14,6 +15,10 @@ git.status().then(status => {
     actions
   });
 }).catch(e => {
-  console.log(e);
+  if (e.stderr) {
+    console.log(chalk.red(e.stderr));
+  } else {
+    console.log(e);
+  }
 });
 
