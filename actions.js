@@ -65,7 +65,11 @@ let actions = {
   e: function edit (choice) {
     if (choice.type === 'section')
       return;
-    let file = choice.value.file;
+
+    let { value: { file }, section } = choice;
+    if (section === SECTIONS.STASH) { // Can not edit stash
+      return;
+    }
 
     if (file.endsWith(path.sep)) { // It's a directory
       return;
