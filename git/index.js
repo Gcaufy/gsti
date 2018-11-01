@@ -39,7 +39,7 @@ module.exports = {
       if (opt) {
         arg = arg.concat(opt);
       }
-      let stashRE = /^stash@{(\d)}:\s+(.*)/;
+      let stashRE = /^stash@{(\d+)}:\s+(.*)/;
       return execa('git', arg).then(({ stdout: list }) => {
         return !list ? [] : list.split('\n').map(item => {
           let match = item.match(stashRE);
