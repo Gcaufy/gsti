@@ -113,6 +113,15 @@ module.exports = {
       words.push({ gray: '  \n  Head:      ' });
       words.push(info.head ? info.head : 'nothing committed yet');
 
+      if (info.name || info.email) {
+        words.push({ gray: '  \n  Author:    ' });
+        if (info.name)
+          words.push({ blue: info.name });
+
+        if (info.email)
+          words.push({ gray: ' <' + info.email + '>' });
+      }
+
       return `${chalk.reset(' ') + this.build(words)} \n \n`;
     });
   }

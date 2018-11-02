@@ -15,6 +15,20 @@ const STATUS_LABELS = {
     'T': 'Typechange'
 };
 
+function cached (fn) {
+  let _cache = [];
+  return function (...args) {
+    let key = args.join('-');
+    if (_cache[key]) {
+      return Promise.resolve(_cache[key]);
+    }
+    return fn.apply(this, args).then(res => {
+      _cache[key] = res;
+      return res;
+    });
+  }
+}
+
 module.exports = {
   STATUS_LABELS: STATUS_LABELS,
   /*
@@ -112,12 +126,22 @@ module.exports = {
     return execa('git', arg).then(({ stdout: head }) => head).catch(e => '');  // Catch when there is no commits;
   },
   info () {
-    return this.branch().then(branch => {
-      return this.remote(branch).then(remote => {
-        return this.log1().then(head => {
-          return { branch, remote, head };
-        });
-      });
+    let info = {};
+    return this.config('user.name').then(name => {
+      info.name = name;
+      return this.config('user.email');
+    }).then(email => {
+      info.email = email;
+      return this.branch();
+    }).then(branch => {
+      info.branch = branch;
+      return this.remote(branch);
+    }).then(remote => {
+      info.remote = remote;
+      return this.log1();
+    }).then(head => {
+      info.head = head;
+      return info;
     });
   },
   /*
@@ -146,6 +170,30 @@ module.exports = {
       arg = arg.concat(file);
     return execa('git', arg);
   },
+  /*
+   * git config list
+   */
+  config: cached(function (...args) {
+    let arg = ['config'];
+    let getList = false;
+    if (args.length === 0) {
+      arg.push('-l');
+      return execa('git', ['config', '-l']).then(({ stdout: config }) => {
+        let list = [];
+        config.split('\n').forEach(item => {
+          let match = item.match(/([^=]*)=?(.*)/);
+          if (match) {
+            list[match[1]] = match[2];
+          }
+        });
+        return list;
+      })
+    } else if (args.length === 1) {
+      return this.config().then(res => {
+        return res[args[0]];
+      });
+    }
+  }),
   /*
    * git status
    */
