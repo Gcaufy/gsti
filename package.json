@@ -14,6 +14,7 @@
   },
   "dependencies": {
     "clipboardy": "^1.2.3",
+    "compare-versions": "^3.4.0",
     "editor": "^1.0.0",
     "execa": "^1.0.0",
     "inquirer": "^6.2.0"
