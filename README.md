@@ -51,7 +51,8 @@ $ git sti
 
 
 - [x] Support `git stash`
-- [ ] Support `git add --patch`
+- [x] Support `git add --patch`
+- [x] Add npm version check 
 
 
 ## Reference
