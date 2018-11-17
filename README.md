@@ -16,7 +16,7 @@ $ npm install gsti -g
 
 ### Movement
 
-| **command** | **description** |
+| **key** | **description** |
 | --- | --- |
 | <kbd>up</kbd> or <kbd>j</kbd> | Move the cursor to the previous line. |
 | <kbd>down</kbd> or <kbd>k</kbd> | Move the cursor to the next line. |
@@ -24,7 +24,7 @@ $ npm install gsti -g
 
 ### Staging
 
-| **command** | **description** |
+| **key** | **description** |
 | --- | --- |
 | <kbd>s</kbd> | Stage the file/section. |
 | <kbd>S</kbd> | Stage all unstaged and untracked files. |
@@ -32,7 +32,7 @@ $ npm install gsti -g
 
 ### Stashes
 
-| **command** | **description** |
+| **key** | **description** |
 | --- | --- |
 | <kbd>a</kbd> | Apply stash. |
 | <kbd>A</kbd> | Pop stash. |
@@ -41,14 +41,14 @@ $ npm install gsti -g
 
 ### Commit
 
-| **command** | **description** |
+| **key** | **description** |
 | --- | --- |
 | <kbd>c</kbd> | Commit files. |
 | <kbd>C</kbd> | Commit all staged files. |
 
 ### File
 
-| **command** | **description** |
+| **key** | **description** |
 | --- | --- |
 | <kbd>e</kbd> | Edit file. |
 | <kbd>d</kbd> | View diff. |
@@ -57,9 +57,9 @@ $ npm install gsti -g
 
 ### Others
 
-| **command** | **description** |
+| **key** | **description** |
 | --- | --- |
-| <kbd>q</kbd> or <kdb>esc</kdb> | quite. |
+| <kbd>q</kbd> or <kbd>esc</kbd> | quite. |
 | <kbd>h</kbd> | help. |
 
 
