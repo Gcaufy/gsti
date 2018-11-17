@@ -12,39 +12,55 @@ gsti gives you a very simple UI for `git status` in command line, you can easily
 $ npm install gsti -g
 ```
 
-## Usage
+## Key Bindings
 
-```
-$ git sti
+### Movement
 
-  # Movement:
+| **command** | **description** |
+| --- | --- |
+| <kbd>up</kbd> or <kbd>j</kbd> | Move the cursor to the previous line. |
+| <kbd>down</kbd> or <kbd>k</kbd> | Move the cursor to the next line. |
 
-  k = previous item
-  j = next section
 
-  # Staging: 
+### Staging
 
-  s = stage file/section
-  u = unstage file/section
-  x = discard file/section
+| **command** | **description** |
+| --- | --- |
+| <kbd>s</kbd> | Stage the file/section. |
+| <kbd>S</kbd> | Stage all unstaged and untracked files. |
+| <kbd>p</kbd> | Interactively stage hunks of a file. |
 
-  # Stashes: 
+### Stashes
 
-  a = apply stash 
-  A = pop stash 
-  z = create a stash 
-  Z = create a stash include untracked files
+| **command** | **description** |
+| --- | --- |
+| <kbd>a</kbd> | Apply stash. |
+| <kbd>A</kbd> | Pop stash. |
+| <kbd>z</kbd> | Create a stash. |
+| <kbd>Z</kbd> | Create a stash include untracked files. |
 
-  # Commit: 
+### Commit
 
-  c = commit
-  C = commit -a (add unstaged)
+| **command** | **description** |
+| --- | --- |
+| <kbd>c</kbd> | Commit files. |
+| <kbd>C</kbd> | Commit all staged files. |
 
-  # File: 
+### File
 
-  e = edit file
-  d = view diff
-```
+| **command** | **description** |
+| --- | --- |
+| <kbd>e</kbd> | Edit file. |
+| <kbd>d</kbd> | View diff. |
+| <kbd>y</kbd> | Yank. |
+| <kbd>x</kbd> | Discard file/section. |
+
+### Others
+
+| **command** | **description** |
+| --- | --- |
+| <kbd>q</kbd> or <kdb>esc</kdb> | quite. |
+| <kbd>h</kbd> | help. |
 
 
 ## TODO List
@@ -52,7 +68,7 @@ $ git sti
 
 - [x] Support `git stash`
 - [x] Support `git add --patch`
-- [x] Add npm version check 
+- [x] Add npm versin check
 
 
 ## Reference
