@@ -14,6 +14,7 @@ $ npm install gsti -g
 
 ## Usage
 
+use `git sti` instead of `git status`
 ```
 $ git sti
 ```
